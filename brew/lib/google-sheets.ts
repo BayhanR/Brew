@@ -6,6 +6,10 @@ type ContactData = {
 }
 
 export async function appendContactRow(data: ContactData) {
+  // Bayrak kapalıysa hiçbir şey yapma; googleapis yüklenmeye çalışılmasın
+  if (process.env.CONTACT_SHEETS_ENABLED !== "true") {
+    return
+  }
   const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID
   const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL
   let privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY
@@ -17,7 +21,10 @@ export async function appendContactRow(data: ContactData) {
   // .env içinde \n ile gelen anahtarı gerçek yeni satıra çevir
   privateKey = privateKey.replace(/\\n/g, "\n")
 
-  const { google } = await import("googleapis")
+  // googleapis'i yalnız çalışma anında ve ihtiyaç halinde yükle (bundler'a zorunlu kılma)
+  // eslint-disable-next-line @typescript-eslint/no-implied-eval
+  const dynamicImport = new Function("m", "return import(m)") as (m: string) => Promise<any>
+  const { google } = await dynamicImport("googleapis")
 
   const auth = new google.auth.JWT({
     email: clientEmail,

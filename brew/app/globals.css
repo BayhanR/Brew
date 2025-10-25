@@ -137,6 +137,31 @@
   }
 }
 
+/* Brand pattern background (arkaplan.png) */
+.brand-pattern {
+  /* Çok baskın olmaması için hafif bir overlay ile karıştırılır */
+  background-image: linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--background) 88%, transparent),
+      color-mix(in oklch, var(--background) 88%, transparent)
+    ),
+    url('/images/arkaplan.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.dark .brand-pattern {
+  background-image: linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--background) 88%, transparent),
+      color-mix(in oklch, var(--background) 88%, transparent)
+    ),
+    url('/images/arkaplan.png');
+}
+
+
 /* Custom animations for hero slideshow */
 @keyframes kenBurns {
   0% {

@@ -80,7 +80,10 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="pt-4 border-t">
+        <div className="pt-4 border-t flex flex-col md:flex-row items-center justify-between gap-2">
+          <p className="text-sm text-muted-foreground">
+            © {currentYear} BREW Gayrimenkul A.Ş. Tüm hakları saklıdır.
+          </p>
           <p className="text-sm text-muted-foreground">
             Developed by {" "}
             <Link

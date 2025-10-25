@@ -200,8 +200,8 @@ export function ContactSection() {
             </Card>
 
             {/* Map */}
-            <Card className="overflow-hidden">
-              <div className="h-64 lg:h-80 bg-muted relative">
+            <Card className="overflow-hidden p-0">
+              <div className="h-64 lg:h-80 bg-muted relative rounded-t-xl">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4045.227584926121!2d27.418845299999994!3d38.4302023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b97136334b5b8f%3A0xdfa712c98db8f5b9!2sBREW%20GAYR%C4%B0MENKUL!5e1!3m2!1str!2str!4v1761407836524!5m2!1str!2str"
                   width="100%"

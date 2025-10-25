@@ -14,7 +14,7 @@ const completedProjects = [
   {
     title: "Lüks Rezidans Projesi",
     location: "İstanbul, Kadıköy",
-    image: "/completed-luxury-residential-building.jpg",
+    image: "/bitmis1.jpeg",
     units: "48 Daire",
     year: "2023",
     description: "Modern mimarisi ve lüks yaşam alanlarıyla öne çıkan prestijli konut projesi.",
@@ -22,7 +22,7 @@ const completedProjects = [
   {
     title: "Modern Yaşam Kompleksi",
     location: "Ankara, Çankaya",
-    image: "/modern-apartment-complex-completed.jpg",
+    image: "/bitmis2.jpeg",
     units: "72 Daire",
     year: "2022",
     description: "Sosyal donatı alanları ve akıllı ev sistemleriyle donatılmış modern kompleks.",
@@ -30,7 +30,7 @@ const completedProjects = [
   {
     title: "Prestij Konutları",
     location: "İzmir, Bornova",
-    image: "/prestigious-residential-towers.jpg",
+    image: "/bitmis1.jpeg",
     units: "36 Daire",
     year: "2023",
     description: "Deniz manzaralı, geniş teraslı lüks konutlar.",
@@ -41,7 +41,7 @@ const activeProjects = [
   {
     title: "Yeni Nesil Yaşam Alanları",
     location: "İstanbul, Ataşehir",
-    image: "/modern-building-construction.png",
+    image: "/bitmemis1.jpeg",
     units: "96 Daire",
     completion: "%65",
     description: "Akıllı şehir konseptiyle tasarlanan, çevre dostu yeşil bina sertifikalı proje.",
@@ -49,7 +49,7 @@ const activeProjects = [
   {
     title: "Bahçeşehir Rezidans",
     location: "İstanbul, Bahçeşehir",
-    image: "/residential-construction-progress.jpg",
+    image: "/bitmemis2.jpeg",
     units: "54 Daire",
     completion: "%40",
     description: "Geniş yeşil alanlar ve sosyal tesislerle donatılmış aile dostu proje.",
@@ -57,7 +57,7 @@ const activeProjects = [
   {
     title: "Akıllı Ev Konsepti",
     location: "Bursa, Nilüfer",
-    image: "/smart-home-construction-project.jpg",
+    image: "/bitmemis3.jpeg",
     units: "32 Daire",
     completion: "%80",
     description: "Tam otomasyon sistemli, enerji tasarruflu akıllı konutlar.",
@@ -121,8 +121,8 @@ export default function ProjectsPage() {
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
-              <Card key={index} className="group overflow-hidden hover:shadow-2xl transition-all duration-300">
-                <div className="relative h-72 overflow-hidden">
+              <Card key={index} className="group overflow-hidden hover:shadow-2xl transition-all duration-300 pt-0 pb-0">
+                <div className="relative h-72 overflow-hidden rounded-t-xl">
                   <Image
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
