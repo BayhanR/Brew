@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Phone, Mail, MapPin, Linkedin, Instagram, MessageCircle } from "lucide-react"
 
 export function ContactSection() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,7 +26,7 @@ export function ContactSection() {
     setSubmitting(true)
     setResult(null)
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(`${basePath}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

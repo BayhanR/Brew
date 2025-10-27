@@ -4,11 +4,12 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronRight, Building2 } from "lucide-react"
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
 const heroImages = [
-  "/modern-luxury-apartment-building-exterior-at-sunse.jpg",
-  "/elegant-residential-construction-site-with-cranes.jpg",
-  "/luxurious-penthouse-interior-with-city-view.jpg",
-  "/contemporary-real-estate-development-aerial-view.jpg",
+  `${basePath}/modern-luxury-apartment-building-exterior-at-sunse.jpg`,
+  `${basePath}/elegant-residential-construction-site-with-cranes.jpg`,
+  `${basePath}/luxurious-penthouse-interior-with-city-view.jpg`,
+  `${basePath}/contemporary-real-estate-development-aerial-view.jpg`,
 ]
 
 export function HeroSection() {
