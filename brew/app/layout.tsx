@@ -5,6 +5,8 @@ import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -24,7 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" suppressHydrationWarning>
-      <body className={`${poppins.variable} font-sans antialiased brand-pattern`}>
+      <body
+        className={`${poppins.variable} font-sans antialiased brand-pattern`}
+        style={{ ["--bg-arkaplan" as any]: `url(${basePath}/images/arkaplan.png)` }}
+      >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
         </ThemeProvider>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -12,42 +13,42 @@ const projects = [
   {
     title: "Lüks Rezidans Projesi",
     location: "İstanbul, Kadıköy",
-    image: "/bitmis1.jpeg",
+    image: `${basePath}/bitmis1.jpeg`,
     status: "Bitti",
     year: "2023",
   },
   {
     title: "Yeni Nesil Yaşam Alanları",
     location: "İstanbul, Ataşehir",
-    image: "/bitmemis1.jpeg",
+    image: `${basePath}/bitmemis1.jpeg`,
     status: "Aktif",
     completion: "%65",
   },
   {
     title: "Modern Yaşam Kompleksi",
     location: "Ankara, Çankaya",
-    image: "/bitmis2.jpeg",
+    image: `${basePath}/bitmis2.jpeg`,
     status: "Bitti",
     year: "2022",
   },
   {
     title: "Bahçeşehir Rezidans",
     location: "İstanbul, Bahçeşehir",
-    image: "/bitmemis2.jpeg",
+    image: `${basePath}/bitmemis2.jpeg`,
     status: "Aktif",
     completion: "%40",
   },
   {
     title: "Prestij Konutları",
     location: "İzmir, Bornova",
-    image: "/bitmis2.jpeg",
+    image: `${basePath}/bitmis2.jpeg`,
     status: "Bitti",
     year: "2023",
   },
   {
     title: "Akıllı Ev Konsepti",
     location: "Bursa, Nilüfer",
-    image: "/bitmemis3.jpeg",
+    image: `${basePath}/bitmemis3.jpeg`,
     status: "Aktif",
     completion: "%80",
   },

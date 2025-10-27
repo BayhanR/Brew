@@ -8,6 +8,7 @@ import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 
 export function Header() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
@@ -42,7 +43,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
             <Image
-              src="/images/brew-logo.png"
+              src={`${basePath}/images/brew-logo.png`}
               alt="BREW Gayrimenkul A.Ş."
               width={320}
               height={90}
@@ -74,7 +75,7 @@ export function Header() {
                 aria-label="Sahibinden sayfamız"
               >
                 <Image
-                  src="/images/sahibinden-logo.png"
+                  src={`${basePath}/images/sahibinden-logo.png`}
                   alt="Sahibinden"
                   width={80}
                   height={24}
@@ -89,7 +90,7 @@ export function Header() {
                 aria-label="Hepsiemlak sayfamız"
               >
                 <Image
-                  src="/images/hepsiemlak-logo.png"
+                  src={`${basePath}/images/hepsiemlak-logo.png`}
                   alt="Hepsiemlak"
                   width={80}
                   height={24}
@@ -134,7 +135,7 @@ export function Header() {
                 aria-label="Sahibinden sayfamız"
               >
                 <Image
-                  src="/images/sahibinden-logo.png"
+                  src={`${basePath}/images/sahibinden-logo.png`}
                   alt="Sahibinden"
                   width={60}
                   height={18}
@@ -148,7 +149,7 @@ export function Header() {
                 aria-label="Hepsiemlak sayfamız"
               >
                 <Image
-                  src="/images/hepsiemlak-logo.png"
+                  src={`${basePath}/images/hepsiemlak-logo.png`}
                   alt="Hepsiemlak"
                   width={60}
                   height={18}

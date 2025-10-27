@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
 import Link from "next/link"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -14,7 +15,7 @@ const completedProjects = [
   {
     title: "Lüks Rezidans Projesi",
     location: "İstanbul, Kadıköy",
-    image: "/bitmis1.jpeg",
+    image: `${basePath}/bitmis1.jpeg`,
     units: "48 Daire",
     year: "2023",
     description: "Modern mimarisi ve lüks yaşam alanlarıyla öne çıkan prestijli konut projesi.",
@@ -22,7 +23,7 @@ const completedProjects = [
   {
     title: "Modern Yaşam Kompleksi",
     location: "Ankara, Çankaya",
-    image: "/bitmis2.jpeg",
+    image: `${basePath}/bitmis2.jpeg`,
     units: "72 Daire",
     year: "2022",
     description: "Sosyal donatı alanları ve akıllı ev sistemleriyle donatılmış modern kompleks.",
@@ -30,7 +31,7 @@ const completedProjects = [
   {
     title: "Prestij Konutları",
     location: "İzmir, Bornova",
-    image: "/bitmis1.jpeg",
+    image: `${basePath}/bitmis1.jpeg`,
     units: "36 Daire",
     year: "2023",
     description: "Deniz manzaralı, geniş teraslı lüks konutlar.",
@@ -41,7 +42,7 @@ const activeProjects = [
   {
     title: "Yeni Nesil Yaşam Alanları",
     location: "İstanbul, Ataşehir",
-    image: "/bitmemis1.jpeg",
+    image: `${basePath}/bitmemis1.jpeg`,
     units: "96 Daire",
     completion: "%65",
     description: "Akıllı şehir konseptiyle tasarlanan, çevre dostu yeşil bina sertifikalı proje.",
@@ -49,7 +50,7 @@ const activeProjects = [
   {
     title: "Bahçeşehir Rezidans",
     location: "İstanbul, Bahçeşehir",
-    image: "/bitmemis2.jpeg",
+    image: `${basePath}/bitmemis2.jpeg`,
     units: "54 Daire",
     completion: "%40",
     description: "Geniş yeşil alanlar ve sosyal tesislerle donatılmış aile dostu proje.",
@@ -57,7 +58,7 @@ const activeProjects = [
   {
     title: "Akıllı Ev Konsepti",
     location: "Bursa, Nilüfer",
-    image: "/bitmemis3.jpeg",
+    image: `${basePath}/bitmemis3.jpeg`,
     units: "32 Daire",
     completion: "%80",
     description: "Tam otomasyon sistemli, enerji tasarruflu akıllı konutlar.",

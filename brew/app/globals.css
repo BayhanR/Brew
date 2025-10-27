@@ -145,7 +145,7 @@
       color-mix(in oklch, var(--background) 88%, transparent),
       color-mix(in oklch, var(--background) 88%, transparent)
     ),
-    url('/images/arkaplan.png');
+    var(--bg-arkaplan, url('/images/arkaplan.png'));
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -158,7 +158,7 @@
       color-mix(in oklch, var(--background) 88%, transparent),
       color-mix(in oklch, var(--background) 88%, transparent)
     ),
-    url('/images/arkaplan.png');
+    var(--bg-arkaplan, url('/images/arkaplan.png'));
 }
 
 
