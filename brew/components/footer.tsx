@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 export function Footer() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
   const currentYear = new Date().getFullYear()
 
   const quickLinks = [
@@ -18,7 +19,7 @@ export function Footer() {
           {/* Company Info */}
           <div>
             <Image
-              src="/images/brew-logo.png"
+              src={`${basePath}/images/brew-logo.png`}
               alt="BREW Gayrimenkul A.Ş."
             width={320}
             height={90}
@@ -54,7 +55,7 @@ export function Footer() {
                 aria-label="Sahibinden sayfamız"
               >
                 <Image
-                  src="/images/sahibinden-logo.png"
+                  src={`${basePath}/images/sahibinden-logo.png`}
                   alt="Sahibinden"
                   width={100}
                   height={30}
@@ -68,7 +69,7 @@ export function Footer() {
                 aria-label="Hepsiemlak sayfamız"
               >
                 <Image
-                  src="/images/hepsiemlak-logo.png"
+                  src={`${basePath}/images/hepsiemlak-logo.png`}
                   alt="Hepsiemlak"
                   width={120}
                   height={30}

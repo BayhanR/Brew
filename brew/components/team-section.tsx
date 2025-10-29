@@ -3,21 +3,23 @@
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
+
 const teamMembers = [
   {
     name: "Abdullah Yılmaz",
     title: "Genel Müdür",
-    image: "/abdullah_yilmaz.png",
+    image: `${basePath}/abdullah_yilmaz.png`,
   },
   {
     name: "Osman Yaşar",
     title: "Gayrimenkul ve Yatırım Danışmanı",
-    image: "/osman_yasar.png",
+    image: `${basePath}/osman_yasar.png`,
   },
   {
     name: "Yavuzhan Şahin",
     title: "Gayrimenkul Danışmanı ve Peyzaj Mimarı",
-    image: "/yavuzhan-sahin.jpg",
+    image: `${basePath}/yavuzhan-sahin.jpg`,
   },
 ]
 
@@ -44,7 +46,7 @@ export function TeamSection() {
             >
               <div className="relative h-80 overflow-hidden rounded-t-lg">
                 <Image
-                  src={member.image || "/placeholder.svg"}
+                  src={member.image || `${basePath}/placeholder.svg`}
                   alt={member.name}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
