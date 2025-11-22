@@ -2,86 +2,70 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"
+import { getBrewProperties, type BrewProperty } from "@/lib/bayhan-properties"
+import { toBrewProxyUrl } from "@/lib/bayhan-images"
 
-const projects = [
-  {
-    title: "Lüks Rezidans Projesi",
-    location: "İstanbul, Kadıköy",
-    image: `${basePath}/bitmis1.jpeg`,
-    status: "Bitti",
-    year: "2023",
-  },
-  {
-    title: "Yeni Nesil Yaşam Alanları",
-    location: "İstanbul, Ataşehir",
-    image: `${basePath}/bitmemis1.jpeg`,
-    status: "Aktif",
-    completion: "%65",
-  },
-  {
-    title: "Modern Yaşam Kompleksi",
-    location: "Ankara, Çankaya",
-    image: `${basePath}/bitmis2.jpeg`,
-    status: "Bitti",
-    year: "2022",
-  },
-  {
-    title: "Bahçeşehir Rezidans",
-    location: "İstanbul, Bahçeşehir",
-    image: `${basePath}/bitmemis2.jpeg`,
-    status: "Aktif",
-    completion: "%40",
-  },
-  {
-    title: "Prestij Konutları",
-    location: "İzmir, Bornova",
-    image: `${basePath}/bitmis2.jpeg`,
-    status: "Bitti",
-    year: "2023",
-  },
-  {
-    title: "Akıllı Ev Konsepti",
-    location: "Bursa, Nilüfer",
-    image: `${basePath}/bitmemis3.jpeg`,
-    status: "Aktif",
-    completion: "%80",
-  },
-]
+type PreviewItem = {
+  title: string
+  location: string
+  image: string
+  status: "Bitti" | "Aktif"
+  year?: string
+  completion?: string
+}
 
 export function PortfolioPreview() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [items, setItems] = useState<PreviewItem[]>([])
+
+  useEffect(() => {
+    const load = async () => {
+      const props = await getBrewProperties()
+      const mapped: PreviewItem[] = props.slice(0, 9).map((p) => ({
+        title: p.title,
+        location: [p.city, p.district].filter(Boolean).join(", "),
+        image: p.images?.[0] ? toBrewProxyUrl(p.images[0]) : "/modern-building-construction.png",
+        status: p.status === "completed" ? "Bitti" : "Aktif",
+        year: p.status === "completed" && p.year ? String(p.year) : undefined,
+        completion: p.status === "ongoing" && p.progress !== null ? `%${p.progress}` : undefined,
+      }))
+      setItems(mapped.length > 0 ? mapped : [])
+    }
+    load()
+  }, [])
 
   useEffect(() => {
     if (!isAutoPlaying) return
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % projects.length)
+      setCurrentIndex((prev) => (prev + 1) % Math.max(items.length, 1))
     }, 4000)
 
     return () => clearInterval(interval)
-  }, [isAutoPlaying])
+  }, [isAutoPlaying, items.length])
 
   const nextSlide = () => {
     setIsAutoPlaying(false)
-    setCurrentIndex((prev) => (prev + 1) % projects.length)
+    setCurrentIndex((prev) => (prev + 1) % Math.max(items.length, 1))
   }
 
   const prevSlide = () => {
     setIsAutoPlaying(false)
-    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length)
+    setCurrentIndex((prev) => (prev - 1 + Math.max(items.length, 1)) % Math.max(items.length, 1))
   }
 
   const getVisibleProjects = () => {
+    if (items.length === 0) return []
+    const count = Math.min(3, items.length)
     const visible = []
-    for (let i = 0; i < 3; i++) {
-      visible.push(projects[(currentIndex + i) % projects.length])
+    for (let i = 0; i < count; i++) {
+      visible.push(items[(currentIndex + i) % items.length])
     }
     return visible
   }
@@ -98,7 +82,13 @@ export function PortfolioPreview() {
 
         <div className="relative max-w-7xl mx-auto">
           {/* Carousel */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div
+            className={
+              `grid grid-cols-1 ${
+                items.length >= 3 ? "md:grid-cols-3" : items.length === 2 ? "md:grid-cols-2" : "md:grid-cols-1"
+              } gap-6 mb-8`
+            }
+          >
             {getVisibleProjects().map((project, index) => (
               <Link href="/projeler" key={`${project.title}-${index}`} aria-label={`Projeler sayfası: ${project.title}`}>
                 <Card
@@ -145,7 +135,7 @@ export function PortfolioPreview() {
               <ChevronLeft className="h-5 w-5" />
             </Button>
             <div className="flex gap-2">
-              {projects.map((_, index) => (
+              {Array.from({ length: Math.max(items.length, 1) }).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => {
