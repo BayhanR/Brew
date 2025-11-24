@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
-    "postbuild": "powershell -NoProfile -Command \"Copy-Item -Recurse -Force .\\public .\\.next\\standalone\\public; Copy-Item -Recurse -Force .\\.next\\static .\\.next\\standalone\\.next\\static\"",
-    "prestart": "powershell -NoProfile -Command \"if (!(Test-Path .\\.next\\standalone\\public)) { Copy-Item -Recurse -Force .\\public .\\.next\\standalone\\public }; if (!(Test-Path .\\.next\\standalone\\.next\\static)) { New-Item -ItemType Directory -Force .\\.next\\standalone\\.next\\static | Out-Null; Copy-Item -Recurse -Force .\\.next\\static .\\.next\\standalone\\.next\\static }\"",
+    "postbuild": "node scripts/copy-standalone.cjs",
+    "prestart": "node scripts/copy-standalone.cjs",
     "start": "set PORT=3001 && node .next/standalone/server.js",
     "serve": "set PORT=3001 && node .next/standalone/server.js",
     "lint": "eslint ."
