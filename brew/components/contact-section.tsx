@@ -143,8 +143,8 @@ export function ContactSection() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Telefon</h3>
-                    <p className="text-muted-foreground">+90 (532) 493 98 01</p>
-                    <p className="text-muted-foreground">+90 (506) 128 67 87</p>
+                    <p className="text-muted-foreground">+90 (552) 212 60 00</p>
+                    <p className="text-muted-foreground">+90 (532) 346 14 16</p>
                   </div>
                 </div>
 
