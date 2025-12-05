@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { appendContactRow } from "@/lib/google-sheets"
+import { sanitizeInput, getClientIP, logSecurityEvent } from "@/lib/security"
 
 function isNonEmptyString(value: unknown, min = 1, max = 2000) {
   return typeof value === "string" && value.trim().length >= min && value.trim().length <= max
@@ -16,12 +17,22 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { name, email, phone, message, hp } = body ?? {}
 
+    // Input sanitization
+    const sanitizedName = sanitizeInput(name || '')
+    const sanitizedEmail = sanitizeInput(email || '')
+    const sanitizedPhone = sanitizeInput(phone || '')
+    const sanitizedMessage = sanitizeInput(message || '')
+
     const errors: Record<string, string> = {}
-    if (!isNonEmptyString(name, 2, 100)) errors.name = "Ad Soyad geçersiz"
-    if (!isValidEmail(email)) errors.email = "E-posta geçersiz"
-    if (!isNonEmptyString(phone, 7, 30)) errors.phone = "Telefon geçersiz"
-    if (!isNonEmptyString(message, 5, 2000)) errors.message = "Mesaj geçersiz"
+    if (!isNonEmptyString(sanitizedName, 2, 100)) errors.name = "Ad Soyad geçersiz"
+    if (!isValidEmail(sanitizedEmail)) errors.email = "E-posta geçersiz"
+    if (!isNonEmptyString(sanitizedPhone, 7, 30)) errors.phone = "Telefon geçersiz"
+    if (!isNonEmptyString(sanitizedMessage, 5, 2000)) errors.message = "Mesaj geçersiz"
     if (Object.keys(errors).length) {
+      logSecurityEvent('invalid_input', {
+        ip: getClientIP(req),
+        errors,
+      })
       return NextResponse.json({ ok: false, errors }, { status: 400 })
     }
 
@@ -45,13 +56,13 @@ export async function POST(req: Request) {
           body: JSON.stringify({
             from,
             to,
-            subject: `Yeni iletişim talebi - ${name}`,
+            subject: `Yeni iletişim talebi - ${sanitizedName}`,
             html: `
               <h2>Yeni İletişim Talebi</h2>
-              <p><strong>Ad Soyad:</strong> ${name}</p>
-              <p><strong>E-posta:</strong> ${email}</p>
-              <p><strong>Telefon:</strong> ${phone}</p>
-              <p><strong>Mesaj:</strong><br/>${escapeHtml(message)}</p>
+              <p><strong>Ad Soyad:</strong> ${escapeHtml(sanitizedName)}</p>
+              <p><strong>E-posta:</strong> ${escapeHtml(sanitizedEmail)}</p>
+              <p><strong>Telefon:</strong> ${escapeHtml(sanitizedPhone)}</p>
+              <p><strong>Mesaj:</strong><br/>${escapeHtml(sanitizedMessage)}</p>
             `,
           }),
         })
@@ -62,7 +73,12 @@ export async function POST(req: Request) {
 
     // Google Sheets'e yaz (bayrak açıksa) - googleapis kurulu değilse sessizce geçer
     try {
-      await appendContactRow({ name, email, phone, message })
+      await appendContactRow({ 
+        name: sanitizedName, 
+        email: sanitizedEmail, 
+        phone: sanitizedPhone, 
+        message: sanitizedMessage 
+      })
     } catch (e) {
       console.warn("Google Sheets yazma atlandı:", (e as Error)?.message)
     }
