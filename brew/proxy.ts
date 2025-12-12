@@ -7,7 +7,7 @@ import {
   isIPBlocked,
 } from "@/lib/security"
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { nextUrl } = request
   const isApiRoute = nextUrl.pathname.startsWith("/api")
 

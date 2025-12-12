@@ -22,7 +22,26 @@ export const metadata: Metadata = {
     default: "BREW Gayrimenkul - Geleceğin Yaşam Alanlarını İnşa Ediyoruz",
     template: "%s | BREW Gayrimenkul",
   },
-  description: "Kat Karşılığı Daire, Müteahhitlik ve Emlak Hizmetleri",
+  description:
+    "İzmir merkezli BREW Gayrimenkul ile kat karşılığı daire, arsa geliştirme, müteahhitlik, tadilat-taahhüt, satılık/kiralık daire, arsa, dükkan, villa, çiftlik, sanayi arsası, fabrika ve depo yatırımlarında profesyonel danışmanlık.",
+  keywords: [
+    "gayrimenkul",
+    "kat karşılığı daire",
+    "arsa geliştirme",
+    "müteahhitlik",
+    "tadilat",
+    "taahhüt",
+    "arsa",
+    "dükkan",
+    "villa",
+    "çiftlik",
+    "sanayi arsası",
+    "fabrika",
+    "depo",
+    "satılık",
+    "kiralık",
+    "İzmir",
+  ],
   alternates: {
     canonical: canonicalUrl,
   },
@@ -31,6 +50,8 @@ export const metadata: Metadata = {
     url: canonicalUrl,
     siteName: "BREW Gayrimenkul",
     locale: "tr_TR",
+    description:
+      "Kat karşılığı daire, arsa geliştirme, müteahhitlik, tadilat-taahhüt ve satılık/kiralık mülklerde İzmir merkezli profesyonel gayrimenkul danışmanlığı.",
     images: [
       {
         url: `${basePath}/modern-building-construction.png`,
@@ -43,7 +64,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BREW Gayrimenkul - Geleceğin Yaşam Alanlarını İnşa Ediyoruz",
-    description: "Kat Karşılığı Daire, Müteahhitlik ve Emlak Hizmetleri",
+    description:
+      "Kat karşılığı daire, arsa geliştirme, müteahhitlik, tadilat-taahhüt, satılık/kiralık arsa, dükkan, villa ve sanayi yatırımlarında uzman ekip.",
     images: [`${basePath}/modern-building-construction.png`],
   },
   generator: "v0.app",
@@ -67,13 +89,34 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
+              "@type": "RealEstateAgent",
               name: "BREW Gayrimenkul",
               url: canonicalUrl,
               logo: `${siteUrl}${basePath}/images/brew-logo.png`,
+              areaServed: "İzmir",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Kirazlı Caddesi 128 / B",
+                addressLocality: "Kemalpaşa",
+                addressRegion: "İzmir",
+                addressCountry: "TR",
+              },
+              makesOffer: [
+                "Kat karşılığı daire",
+                "Arsa geliştirme",
+                "Müteahhitlik",
+                "Tadilat ve taahhüt",
+                "Satılık/kiralık daire",
+                "Satılık/kiralık arsa",
+                "Satılık/kiralık dükkan",
+                "Satılık/kiralık villa",
+                "Satılık/kiralık çiftlik",
+                "Sanayi arsası",
+                "Fabrika ve depo",
+              ],
               sameAs: [
                 "https://www.instagram.com/brewgayrimenkul",
-                "https://linkedin.com",
+                "https://brewyapigayrimenkul.sahibinden.com/",
               ],
             }),
           }}

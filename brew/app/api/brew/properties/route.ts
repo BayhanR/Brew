@@ -13,14 +13,44 @@ export async function GET() {
     if (serverToken) {
       headers["Authorization"] = `Bearer ${serverToken}`
     }
-    const res = await fetch(`${BAYHAN_API_URL}/api/properties`, {
+    
+    const apiUrl = `${BAYHAN_API_URL}/api/properties`
+    
+    const res = await fetch(apiUrl, {
       headers,
       cache: "no-store",
     })
-    const data = await res.json().catch(() => ({}))
-    return NextResponse.json(data, { status: res.status })
+    
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => 'Unknown error')
+      console.error(`[Brew API] ${res.status} error from ${apiUrl}:`, errorText)
+      return NextResponse.json(
+        { 
+          properties: [], 
+          error: `API returned ${res.status}`,
+          message: process.env.NODE_ENV === 'development' ? errorText : undefined
+        }, 
+        { status: res.status }
+      )
+    }
+    
+    const data = await res.json().catch((parseError) => {
+      console.error('[Brew API] JSON parse error:', parseError)
+      return { properties: [] }
+    })
+    
+    return NextResponse.json(data, { status: 200 })
   } catch (error) {
-    return NextResponse.json({ properties: [] }, { status: 500 })
+    console.error('[Brew API] Fetch error:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    return NextResponse.json(
+      { 
+        properties: [], 
+        error: 'Failed to fetch properties',
+        message: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+      }, 
+      { status: 500 }
+    )
   }
 }
 

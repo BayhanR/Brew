@@ -16,10 +16,11 @@ const BLOCKED_IPS = [
 ];
 
 // Rate limit ayarları
+const isDevelopment = process.env.NODE_ENV === 'development'
 const RATE_LIMIT = {
   windowMs: 60000, // 1 dakika
-  maxRequests: 100, // Maksimum istek sayısı
-  apiMaxRequests: 20, // API için maksimum istek sayısı
+  maxRequests: isDevelopment ? 1000 : 100, // Development'ta daha yüksek limit
+  apiMaxRequests: isDevelopment ? 200 : 20, // Development'ta API için daha yüksek limit
 };
 
 /**
@@ -36,7 +37,14 @@ export function getClientIP(request: Request | { headers: Headers }): string {
     return forwardedFor.split(',')[0].trim();
   }
 
-  return realIP || cfConnectingIP || 'unknown';
+  const ip = realIP || cfConnectingIP || 'unknown';
+  
+  // Development'ta localhost IP'lerini normalize et
+  if (isDevelopment && (ip === '::1' || ip === '::ffff:127.0.0.1' || ip.startsWith('127.'))) {
+    return 'localhost';
+  }
+  
+  return ip;
 }
 
 /**
